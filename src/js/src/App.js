@@ -4,6 +4,7 @@ import getAllStudents from "./client";
 import {Table,Avatar,Spin,Icon,Modal} from 'antd';
 import Container from "./Container";
 import Footer from './Footer';
+import AddStudentForm from "./forms/AddStudentForm";
 const antIcon = ()=>(<Icon type="loading" style={{ fontSize: 24 }} spin />);
 
 
@@ -83,8 +84,7 @@ openAddStudentModalVisible=()=>{
                       onOk={this.openAddStudentModalVisible}
                       onCancel={this.openAddStudentModalVisible}
                       width={1000}>
-                      <h1>Hello</h1>
-
+                    <AddStudentForm/>
                   </Modal>
                   <Footer numberOfStudents={students.length} setModal={this.openAddStudentModalVisible}  />
               </Container>
