@@ -2,3 +2,9 @@ server:
   servlet:
     context-path: /api
   port: 8080
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/aktheraja
+    username: postgres
+    password: password
+    pool-size: 30

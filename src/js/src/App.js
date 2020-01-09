@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import './App.css';
 import getAllStudents from "./client";
-import {Table,Avatar,Spin,Icon} from 'antd';
+import {Table,Avatar,Spin,Icon,Modal} from 'antd';
 import Container from "./Container";
-
+import Footer from './Footer';
 const antIcon = ()=>(<Icon type="loading" style={{ fontSize: 24 }} spin />);
 
 
 class  App extends Component {
   state ={
     students:[],
-      isFetching:false
+      isFetching:false,
+      isAddStudentModalVisible:false
   }
   componentDidMount() {
     this.fetchStudents();
@@ -22,8 +23,13 @@ class  App extends Component {
       this.setState({students:students,isFetching:false});
     }));
   }
+
+openAddStudentModalVisible=()=>{
+      this.setState({isAddStudentModalVisible: !this.state.isAddStudentModalVisible});
+}
+
   render() {
-        const {students,isFetching} =this.state;
+        const {students,isFetching,isAddStudentModalVisible} =this.state;
         if(isFetching){
           return(
               <Container>
@@ -31,7 +37,6 @@ class  App extends Component {
             </Container>
           )
         }
-      const le =()=> {
           if (students && students.length) {
               const columns = [
                   {
@@ -71,14 +76,24 @@ class  App extends Component {
                       key: 'gender'
                   }
               ];
-              return <Container><Table dataSource={students} columns={columns} rowKey='studentId' pagination={false}/></Container>
-          } else {
-              return <h1>No student found</h1>
+              return <Container><Table dataSource={students} columns={columns} rowKey='studentId' pagination={false}/>
+                  <Modal
+                      title="Add new student"
+                      visible={isAddStudentModalVisible}
+                      onOk={this.openAddStudentModalVisible}
+                      onCancel={this.openAddStudentModalVisible}
+                      width={1000}>
+                      <h1>Hello</h1>
+
+                  </Modal>
+                  <Footer numberOfStudents={students.length} setModal={this.openAddStudentModalVisible}  />
+              </Container>
           }
-      }
+
     return (
 
-        <h1>{le()}</h1>
+    <h1>No student found</h1>
+
 
   );
   }
