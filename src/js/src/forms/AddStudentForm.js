@@ -26,7 +26,7 @@ class AddStudentForm extends Component{
                         if (!values.gender) {
                             errors.gender = 'Gender Required';
                         }
-                        else if(!['MALE', 'Male', 'FEMALE', 'female'].includes(values.gender)){
+                        else if(!['MALE', 'male', 'FEMALE', 'female'].includes(values.gender)){
                             errors.gender = 'Gender must be (MALE, male, FEMALE, female)';
                         }
                         return errors;
@@ -46,6 +46,8 @@ class AddStudentForm extends Component{
                           handleBlur,
                           handleSubmit,
                           isSubmitting,
+                        submitForm,
+                        isValid
                           /* and other goodies */
                       }) => (
                         <form onSubmit={handleSubmit}>
@@ -88,7 +90,10 @@ class AddStudentForm extends Component{
                             />
                             {errors.gender && touched.gender &&
                             <Tag style={tagStyle}>{errors.gender}</Tag>}
-                            <Button type="submit" disabled={isSubmitting}>
+                            <Button
+                                onClick={()=>submitForm()}
+                                type="submit"
+                                disabled={isSubmitting || (touched && !isValid)}>
                                 Submit
                             </Button>
                         </form>
