@@ -17,10 +17,13 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getAllStudent(){
-     return  studentService.getAllStudents();
+     throw new IllegalStateException("Opps can not get all students");
+//     return  studentService.getAllStudents();
     }
+
     @PostMapping
     public void addNewStudent(@RequestBody Student student){
-        System.out.println(student);
+        studentService.addNewStudent(student);
     }
 }
+

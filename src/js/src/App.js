@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import getAllStudents from "./client";
+import getAllStudents from "./client_getStudents";
 import {Table,Avatar,Spin,Icon,Modal} from 'antd';
 import Container from "./Container";
 import Footer from './Footer';
@@ -20,9 +20,13 @@ class  App extends Component {
 
   fetchStudents=()=> {
       this.setState({isFetching:true});
-    getAllStudents().then(res => res.json().then(students => {
+    getAllStudents().then(response => response.json().then(students => {
       this.setState({students:students,isFetching:false});
-    }));
+
+    })).catch(error=>{console.log(error.error.message);
+        this.setState({isFetching:false});
+    });
+
   }
 
 openAddStudentModalVisible=()=>{
@@ -77,14 +81,20 @@ openAddStudentModalVisible=()=>{
                       key: 'gender'
                   }
               ];
-              return <Container><Table dataSource={students} columns={columns} rowKey='studentId' pagination={false}/>
+              return <Container><Table style={{marginBottom:'100px'}} dataSource={students} columns={columns} rowKey='studentId' pagination={false}/>
                   <Modal
                       title="Add new student"
                       visible={isAddStudentModalVisible}
                       onOk={this.openAddStudentModalVisible}
                       onCancel={this.openAddStudentModalVisible}
                       width={1000}>
-                    <AddStudentForm/>
+                    <AddStudentForm
+                        onSuccess = {()=>{
+                            this.openAddStudentModalVisible();
+                        this.fetchStudents();
+                        }}
+
+                    />
                   </Modal>
                   <Footer numberOfStudents={students.length} setModal={this.openAddStudentModalVisible}  />
               </Container>
