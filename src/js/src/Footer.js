@@ -6,7 +6,7 @@ const Footer = (props)=>{
     return(
         <div className='footer'>
             <div className="container">
-                {props.numberOfStudents? <Avatar
+                {props.numberOfStudents!==undefined? <Avatar
                     style={{backgroundColor: '#f56a00' , marginRight:'5px'}}
                     size='large'>{props.numberOfStudents}</Avatar>:null}
                 <Button type='primary' style={{marginTop:'5px'}} onClick={props.setModal} >Add new student +</Button>

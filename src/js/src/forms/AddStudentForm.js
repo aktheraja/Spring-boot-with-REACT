@@ -1,7 +1,8 @@
 import React from "react";
 import {Formik} from "formik";
 import {Input,Button,Tag} from "antd";
-import addNewStudent from '../client_postStudent';
+import {addNewStudent} from '../client';
+
 const inputButtonMargin = {marginBottom:'10px'};
 const tagStyle = {backgroundColor: '#f50',color:'white',...inputButtonMargin}
 const AddStudentForm =(props)=> {
@@ -32,12 +33,13 @@ const AddStudentForm =(props)=> {
                         }
                         return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => {
-                        addNewStudent(values).then(res=>{
+                    onSubmit={(student, { setSubmitting }) => {
+                        addNewStudent(student).then(res=>{
                             props.onSuccess();
-                           alert("student submitted successfully");
-                        });
-                            setSubmitting(false);
+                        }).catch(err=>{
+                            props.onFailure(err);
+                        })
+                             setSubmitting(false);
                     }}>
                     {({
                           values,
