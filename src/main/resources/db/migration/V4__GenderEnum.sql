@@ -1,3 +1,5 @@
-CREATE TYPE gender AS ENUM ('MALE','FEMALE');
+CREATE TYPE gender AS ENUM ('MALE', 'FEMALE');
 
-ALTER TABLE student ALTER COLUMN gender TYPE gender USING (gender::gender);
+ALTER TABLE student
+ALTER COLUMN gender TYPE gender
+USING (gender::gender)

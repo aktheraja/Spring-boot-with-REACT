@@ -1,1 +1,1 @@
-ALTER TABLE course ALTER department SET NOT NULL ;
+ALTER TABLE course ALTER department SET NOT NULL;
