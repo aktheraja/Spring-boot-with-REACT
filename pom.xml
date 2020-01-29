@@ -132,6 +132,11 @@
 					</plugin>
 				</plugins>
 			</build>
+			<properties>
+				<spring.profiles.active>
+					matrix4
+				</spring.profiles.active>
+			</properties>
 		</profile>
 	</profiles>
 
